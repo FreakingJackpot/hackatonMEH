@@ -4,7 +4,7 @@ import requests
 def get_vacancies():
     count = get_vacancies_count()
     dict = {}
-    for i in range(int(count / 100)):
+    for i in range(1):
         params = {
             'text': 'IT',
             'area': 113,
@@ -16,8 +16,10 @@ def get_vacancies():
         data = data.json()
 
         for i in data['items']:
-            dict[i['name']] = get_key_skills(i['url'])
-            print(len(dict.keys()))
+            if  i['name'] in dict:
+                dict[i['name']] = get_key_skills(i['url'])+dict[i['name']]
+            else:
+                dict[i['name']] = get_key_skills(i['url'])
 
     return dict
 
